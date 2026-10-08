@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -29,10 +32,15 @@ function Login() {
         return;
       }
 
-      // Save JWT token
+      // Save login token
       localStorage.setItem("token", data.token);
 
+      // Save actual logged-in user's information
+      localStorage.setItem("user", JSON.stringify(data.user));
+
       alert("Login successful!");
+
+      navigate("/profile");
 
     } catch (error) {
       console.error("Login error:", error);

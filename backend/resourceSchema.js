@@ -20,7 +20,7 @@ const createResourcesTable = async () => {
     `);
 };
 
-// 2. Initial resource data (inserted only if the slug does not exist yet)
+// 2. Initial resource data
 const seedResources = [
     {
         title: "Stress & Overwhelm",
@@ -33,6 +33,7 @@ const seedResources = [
         path: "/resources/stress-and-overwhelm",
         available: true,
     },
+
     {
         title: "Academic Pressure",
         slug: "academic-pressure",
@@ -41,7 +42,10 @@ const seedResources = [
         tags: ["Study", "Stress"],
         icon: "GraduationCap",
         icon_style: "bg-blue-50 text-blue-600",
+        path: "/resources/academic-pressure",
+        available: true,
     },
+
     {
         title: "Sleep & Rest",
         slug: "sleep-and-rest",
@@ -50,7 +54,9 @@ const seedResources = [
         tags: ["Sleep", "Habits"],
         icon: "Moon",
         icon_style: "bg-indigo-50 text-indigo-600",
+        available: false,
     },
+
     {
         title: "Confidence & Self-Esteem",
         slug: "confidence-and-self-esteem",
@@ -59,7 +65,9 @@ const seedResources = [
         tags: ["Confidence", "Self"],
         icon: "Heart",
         icon_style: "bg-rose-50 text-rose-500",
+        available: false,
     },
+
     {
         title: "Healthy Habits",
         slug: "healthy-habits",
@@ -68,7 +76,9 @@ const seedResources = [
         tags: ["Habits", "Wellbeing"],
         icon: "Leaf",
         icon_style: "bg-green-50 text-green-600",
+        available: false,
     },
+
     {
         title: "Relationships & Friendship",
         slug: "relationships-and-friendship",
@@ -77,7 +87,10 @@ const seedResources = [
         tags: ["Relationships", "Social"],
         icon: "Users",
         icon_style: "bg-pink-50 text-pink-500",
+        path: "/resources/relationships-and-friendship",
+        available: true,
     },
+
     {
         title: "Managing Change",
         slug: "managing-change",
@@ -86,7 +99,10 @@ const seedResources = [
         tags: ["Change", "Life"],
         icon: "Compass",
         icon_style: "bg-teal-50 text-teal-600",
+        path: "/resources/managing-change",
+        available: true,
     },
+
     {
         title: "Focus & Productivity",
         slug: "focus-and-productivity",
@@ -95,7 +111,10 @@ const seedResources = [
         tags: ["Focus", "Study"],
         icon: "Target",
         icon_style: "bg-orange-50 text-orange-600",
+        path: "/resources/focus-and-productivity",
+        available: true,
     },
+
     {
         title: "Money & Student Life",
         slug: "money-and-student-life",
@@ -104,7 +123,10 @@ const seedResources = [
         tags: ["Money", "Life"],
         icon: "WalletCards",
         icon_style: "bg-emerald-50 text-emerald-600",
+        path: "/resources/money-and-student-life",
+        available: true,
     },
+
     {
         title: "Finding Support",
         slug: "finding-support",
@@ -113,9 +135,12 @@ const seedResources = [
         tags: ["Support", "Help"],
         icon: "HeartHandshake",
         icon_style: "bg-sky-50 text-sky-600",
+        path: "/resources/finding-support",
+        available: true,
     },
 ];
 
+// 3. Insert resources if they do not already exist
 const seedResourceData = async () => {
     for (const r of seedResources) {
         await pool.query(
@@ -138,9 +163,32 @@ const seedResourceData = async () => {
     }
 };
 
+// 4. Update existing resources
+const updateResourcePaths = async () => {
+    const updates = [
+        ["academic-pressure", "/resources/academic-pressure", true],
+        ["focus-and-productivity", "/resources/focus-and-productivity", true],
+        ["managing-change", "/resources/managing-change", true],
+        ["relationships-and-friendship", "/resources/relationships-and-friendship", true],
+        ["money-and-student-life", "/resources/money-and-student-life", true],
+        ["finding-support", "/resources/finding-support", true],
+    ];
+
+    for (const [slug, path, available] of updates) {
+        await pool.query(
+            `UPDATE resources
+             SET path = $1, available = $2
+             WHERE slug = $3`,
+            [path, available, slug]
+        );
+    }
+};
+
 const initResources = async () => {
     await createResourcesTable();
     await seedResourceData();
+    await updateResourcePaths();
+
     console.log("Resources table ready");
 };
 

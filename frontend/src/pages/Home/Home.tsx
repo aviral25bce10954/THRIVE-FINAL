@@ -8,32 +8,41 @@ import {
   Smile,
 } from 'lucide-react'
 
+import { useNavigate } from 'react-router-dom'
+
 import heroImage from '../../assets/images/thrive-hero.png'
 import FeatureHighlights from '../../components/FeatureHighlights/FeatureHighlights'
+
 function Home() {
+  const navigate = useNavigate()
+
   return (
     <main className="overflow-hidden">
       {/* HERO */}
-        <section className="mx-auto max-w-7xl px-6 pb-14 pt-6 sm:pb-16 sm:pt-8 lg:px-10 lg:pb-18 lg:pt-8">        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-2 xl:gap-6">
+      <section className="mx-auto max-w-7xl px-6 pb-14 pt-6 sm:pb-16 sm:pt-8 lg:px-10 lg:pb-18 lg:pt-8">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-2 xl:gap-6">
 
           {/* LEFT */}
           <div className="relative z-10">
-           <h1 className="max-w-2xl text-5xl font-bold leading-[1.06] tracking-tight text-slate-800 sm:text-6xl lg:text-[56px] xl:text-[66px]">
+            <h1 className="max-w-2xl text-5xl font-bold leading-[1.06] tracking-tight text-slate-800 sm:text-6xl lg:text-[56px] xl:text-[66px]">
               Your wellbeing
               <br />
               <span className="text-teal-600">matters.</span>
             </h1>
 
-            <p className="mt-6 max-w-[590px] text-lg leading-8 text-slate-600 sm:text-xl">              A safe and private space for students to check in,
+            <p className="mt-6 max-w-[590px] text-lg leading-8 text-slate-600 sm:text-xl">
+              A safe and private space for students to check in,
               understand their feelings, and get the support they need.
             </p>
 
             {/* Buttons */}
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
 
+              {/* START CHECK-IN */}
               <button
                 type="button"
-                className="group flex min-h-[78px] items-center justify-between rounded-2xl bg-teal-600 px-6 py-4 text-left text-white shadow-sm transition hover:bg-teal-700 w-full sm:w-[310px]"
+                onClick={() => navigate('/check-in')}
+                className="group flex min-h-[78px] w-full items-center justify-between rounded-2xl bg-teal-600 px-6 py-4 text-left text-white shadow-sm transition hover:bg-teal-700 sm:w-[310px]"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
@@ -46,7 +55,7 @@ function Home() {
                     </div>
 
                     <div className="mt-1 inline-block rounded-full bg-white/20 px-2.5 py-0.5 text-xs">
-                      Coming Soon
+                      Quick wellbeing check
                     </div>
                   </div>
                 </div>
@@ -57,9 +66,10 @@ function Home() {
                 />
               </button>
 
+              {/* EXPLORE WELLBEING */}
               <button
                 type="button"
-                className="group flex min-h-[78px] items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-left text-slate-700 shadow-sm transition hover:border-teal-200 hover:bg-teal-50/30 w-full sm:w-[310px]"
+                className="group flex min-h-[78px] w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-6 py-4 text-left text-slate-700 shadow-sm transition hover:border-teal-200 hover:bg-teal-50/30 sm:w-[310px]"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-50 text-violet-500">
@@ -72,7 +82,7 @@ function Home() {
                     </div>
 
                     <div className="mt-1 inline-block rounded-full bg-violet-50 px-2.5 py-0.5 text-xs text-violet-500">
-                      Coming Soon
+                      Explore resources
                     </div>
                   </div>
                 </div>
@@ -86,7 +96,8 @@ function Home() {
             </div>
 
             {/* Privacy */}
-            <div className="mt-8 flex items-center gap-3 text-sm text-violet-500 sm:text-[15px]">              <ShieldCheck size={23} strokeWidth={1.8} />
+            <div className="mt-8 flex items-center gap-3 text-sm text-violet-500 sm:text-[15px]">
+              <ShieldCheck size={23} strokeWidth={1.8} />
 
               <span>
                 Your privacy is important. Your data is secure and confidential.
@@ -95,7 +106,8 @@ function Home() {
           </div>
 
           {/* RIGHT / ILLUSTRATION */}
-            <div className="relative mx-auto mt-2 flex min-h-[500px] w-full max-w-[720px] items-center justify-center lg:mt-0 lg:min-h-[620px]">
+          <div className="relative mx-auto mt-2 flex min-h-[500px] w-full max-w-[720px] items-center justify-center lg:mt-0 lg:min-h-[620px]">
+
             {/* Soft background glow */}
             <div className="absolute h-[390px] w-[390px] rounded-full bg-blue-50/80 blur-[2px] sm:h-[480px] sm:w-[480px] lg:h-[530px] lg:w-[530px]" />
 
@@ -112,7 +124,7 @@ function Home() {
                 <Brain size={20} />
               </div>
 
-              <span className="fonttext-sm font-medium">
+              <span className="text-sm font-medium">
                 Understand
                 <br />
                 your feelings
@@ -125,7 +137,7 @@ function Home() {
                 <BarChart3 size={20} />
               </div>
 
-              <span className="fonttext-sm font-medium">
+              <span className="text-sm font-medium">
                 Track your
                 <br />
                 wellbeing
@@ -133,7 +145,7 @@ function Home() {
             </div>
 
             {/* Bubble 3 */}
-            <div className="absolute bottom-[18%] left-[-1%] z-20 hidden items-center gap-3 rounded-full bg-green-50/95 px-4 py-2.5  text-green-900 shadow-sm sm:flex">
+            <div className="absolute bottom-[18%] left-[-1%] z-20 hidden items-center gap-3 rounded-full bg-green-50/95 px-4 py-2.5 text-green-900 shadow-sm sm:flex">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 text-green-600">
                 <Leaf size={20} />
               </div>
@@ -157,12 +169,12 @@ function Home() {
                 support
               </span>
             </div>
+
           </div>
         </div>
       </section>
 
-     
-      <FeatureHighlights/>
+      <FeatureHighlights />
     </main>
   )
 }
